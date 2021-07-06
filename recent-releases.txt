@@ -1,0 +1,6 @@
+
+- Feb 2020: New: Use AWS CloudFormation StackSets for Multiple Accounts in an AWS Organization
+  - https://aws.amazon.com/blogs/aws/new-use-aws-cloudformation-stacksets-for-multiple-accounts-in-an-aws-organization/
+
+
+  

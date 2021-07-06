@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Sample template for AWS Lambda function with python runtime
+
+Parameters:
+  LambdaFunctionMemory:
+      Type: Number
+      Default: 512
+      MinValue: 128
+      MaxValue: 10240
+      Description: Amount of memory available to your Lambda function at runtime in MB
+  LambdaFunctionTimeOutSeconds:
+      Type: Number
+      Default: 30
+      MinValue: 1
+      MaxValue: 10240
+      Description: Amount of memory available to your Lambda function at runtime in MB
+Resources:
+  SimpleLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+
+                  def lambda_handler(event, context):
+                      print("Welcome to CFN Lunch and Learn")
+                      return("Welcome to CFN Lunch and Learn")
+
+      Description: Lambda function for CFN lunch and learn
+      FunctionName: CFN-lunch-learn
+      Handler: index_handler
+      MemorySize: !Ref LambdaFunctionMemory
+      Runtime: python3.6
+      Role: !GetAtt LambdaRole.Arn
+      Tags:
+        - Key: "Project"
+          Value: "CFN-Lunch-and-learn"
+      Timeout: !Ref LambdaFunctionTimeOutSeconds
+
+
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+            - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
